@@ -1,0 +1,15 @@
+@keyframes example {
+  from {font-size: 0px; padding-top: 0px;}
+  to {font-size: 42px; padding-top: 50px;}
+}
+
+.welcome-msg {
+  color: #27ecc9;
+  font-size: 42px;
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+  animation-name: example;
+  animation-duration: 3s;
+  padding-top: 50px;
+}
