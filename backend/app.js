@@ -1,22 +1,32 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var MongoClient = require("mongodb").MongoClient;
+const dbConfig = require("./config/database.config.js");
+const mongoose = require("mongoose");
 var app = express();
-
+require("./app/routes/note.routes.js")(app);
 var port = 3001;
-var url = "mongodb://localhost:27017/noteWorx";
 
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  console.log("Database Connected !!");
-  db.close();
-}); 
+mongoose.Promise = global.Promise;
+mongoose
+  .connect(dbConfig.url, {
+    useNewUrlParser: true
+  })
+  .then(() => {
+    console.log("Successfully connected to the database");
+  })
+  .catch(err => {
+    console.log("Could not connect to the database. Exiting now...", err);
+    process.exit();
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", (req, res) => {
-  res.send("Home");
+  res.json({
+    message:
+      "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."
+  });
 });
 
 app.listen(port, () => {
