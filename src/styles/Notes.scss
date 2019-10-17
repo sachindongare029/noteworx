@@ -1,0 +1,39 @@
+.notes-container {
+  margin: 40px 230px;
+  .notes__input-container {
+    font-size: x-large;
+    text-align: center;
+    line-height: 50px;
+    input {
+      width: 80%;
+      padding: 0 15px;
+      font-size: 22px;
+      outline: none;
+      color: #616161;
+    }
+    ::placeholder {
+      color: #929191;
+      opacity: 1;
+    }
+    .search--btn, .add--btn {
+      background: none;
+      background-color: #3f7bff;
+      border: none;
+      border-bottom: 2px solid #3f7bff;
+      width: 10%;
+      outline: none;
+      i {
+        color: white;
+      }
+    }
+    .search--btn {
+      border-radius: 0 7px 7px 0;
+    }
+    .add--btn {
+      border-radius: 7px 0 0 7px;
+    }
+  }
+  .notes__result-container {
+    margin-top: 20px;
+  }
+}
