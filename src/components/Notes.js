@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NotesTable from './NotesTable';
 import '../styles/Notes.scss';
 
 class Notes extends Component {
@@ -6,8 +7,7 @@ class Notes extends Component {
     super(props);
     this.state = {
       isLoaded: false,
-      items: [],
-      error: ""
+      items: []
     }
   }
   componentDidMount() {
@@ -31,7 +31,6 @@ class Notes extends Component {
 
   render() {
     let {isLoaded, items, error} = this.state;
-    console.log("items", items);
     return (
       <div className="notes-container">
         <div className="notes__input-container">
@@ -44,7 +43,7 @@ class Notes extends Component {
           </button>
         </div>
         <div className="notes__result-container">
-          No notes till..
+          { error ? "Server Not Responding..." : (!isLoaded ? "Loading..." : <NotesTable notes={items} />) }
         </div>
       </div>
     );

@@ -21,7 +21,7 @@ exports.create = function(req, res) {
     if (err) {
       return (err);
     }
-    res.send({"obj": NoteObj});
+    res.send(NoteObj);
   });
 };
 
@@ -30,5 +30,24 @@ exports.notes = function(req, res) {
   Note.findById(req.params.id, function(err, Note) {
     if (err) return (err);
     res.send(Note);
+  });
+};
+
+// Delete by ID
+exports.delete = function(req, res) {
+  Note.findByIdAndRemove(req.params.id, function(err) {
+    if (err) return err;
+    res.send("Deleted successfully!");
+  });
+};
+
+// Update Database
+exports.update = function(req, res) {
+  Note.findByIdAndUpdate(req.params.id, { $set: req.body }, function(
+    err,
+    product
+  ) {
+    if (err) return next(err);
+    res.send("Product udpated.");
   });
 };
