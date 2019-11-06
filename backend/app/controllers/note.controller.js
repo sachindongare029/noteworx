@@ -1,31 +1,27 @@
 const Note = require("../models/note.model.js");
 
 // Create and Save a new Note
-exports.create = (req, res) => {
-  console.log(req.body);
-  res.send({"response": req.body});
-  // Validate request
-  // if (!req.body.content) {
-  //   return res.status(400).send({
-  //     message: "Note content can not be empty"
-  //   });
-  // }
+exports.display = function(req, res) {
+  res.send({"hello": "Greetings from the Test controller!"});
+};
 
-  // Create a Note
-  // const note = new Note({
-  //   title: req.body.title || "Untitled Note",
-  //   content: req.body.content
-  // });
+exports.create = function(req, res) {
+  let NoteObj = new Note({
+    name: req.body.name,
+    price: req.body.price
+  });
 
-  // Save Note in the database
-  // note
-  //   .save()
-  //   .then(data => {
-  //     res.send(data);
-  //   })
-  //   .catch(err => {
-  //     res.status(500).send({
-  //       message: err.message || "Some error occurred while creating the Note."
-  //     });
-  //   });
+  NoteObj.save(function(err) {
+    if (err) {
+      return next(err);
+    }
+    res.send("Note Created successfully");
+  });
+};
+
+exports.notes = function(req, res) {
+  Note.findById(req.params.id, function(err, Note) {
+    if (err) return next(err);
+    res.send(Note);
+  });
 };

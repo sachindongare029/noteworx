@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 const dbConfig = require("./config/database.config.js");
 const mongoose = require("mongoose");
 var app = express();
-require("./app/routes/note.routes.js")(app);
+const notesApi = require("./app/routes/note.routes.js");
 var port = 3001;
 
 mongoose.Promise = global.Promise;
@@ -22,12 +22,9 @@ mongoose
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/", (req, res) => {
-  res.json({
-    message:
-      "Welcome to EasyNotes application. Take notes quickly. Organize and keep track of all your notes."
-  });
-});
+// app.use("/", function(req,res) {res.send("welcome")});
+app.use("/", notesApi);
+// app.use("/notes", notesApi);
 
 app.listen(port, () => {
   console.log("Server listening on port " + port);
