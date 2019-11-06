@@ -1,6 +1,6 @@
 const Note = require("../models/note.model.js");
 
-// Create and Save a new Note
+// Display Notes
 exports.display = function(req, res) {
   Note.find(function(err, Note) {
     if (err) return (err);
@@ -8,6 +8,7 @@ exports.display = function(req, res) {
   });
 };
 
+// Create Notes
 exports.create = function(req, res) {
   let NoteObj = new Note({
     title: req.body.title,
@@ -24,6 +25,7 @@ exports.create = function(req, res) {
   });
 };
 
+// Display by ID
 exports.notes = function(req, res) {
   Note.findById(req.params.id, function(err, Note) {
     if (err) return (err);
