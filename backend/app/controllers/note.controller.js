@@ -15,7 +15,7 @@ exports.create = function(req, res) {
     if (err) {
       return next(err);
     }
-    res.send("Note Created successfully");
+    res.send({"obj": NoteObj});
   });
 };
 

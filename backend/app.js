@@ -24,7 +24,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use("/", function(req,res) {res.send("welcome")});
 app.use("/", notesApi);
-// app.use("/notes", notesApi);
 
 app.listen(port, () => {
   console.log("Server listening on port " + port);
