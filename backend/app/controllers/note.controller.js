@@ -13,7 +13,7 @@ exports.create = function(req, res) {
     title: req.body.title,
     content: req.body.content,
     tag: req.body.tag,
-    date: req.body.date
+    date: new Date()
   });
 
   NoteObj.save(function(err) {
