@@ -1,7 +1,7 @@
 .notes {
   table {
     width: 100%;
-    line-height: 40px;
+    line-height: 50px;
     tr, td, th {
       border: 1px solid #c7c7c7;
     }
@@ -11,6 +11,22 @@
     td {
       padding: 0 8px;
       color: #3a3939;
+    }
+    tr {
+      .fa-pencil {
+        color: #3f7bff;
+      }
+      .fa-trash {
+        color: #dd4549;
+      }
+      .fa-pencil, .fa-trash {
+        width: 50%;
+        font-size: 20px;
+        text-align: center;
+      }
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
     }
     .buttons-col {
       width: 10%;

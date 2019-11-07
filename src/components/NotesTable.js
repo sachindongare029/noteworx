@@ -23,7 +23,10 @@ class NotesTable extends Component {
             {notes.map((note, i)=>{
               return (
                 <tr key={i}>
-                  <td></td>
+                  <td>
+                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                    <i className="fa fa-trash" aria-hidden="true"></i>
+                  </td>
                   <td>{note.title}</td>
                   <td>{note.content}</td>
                   <td>{moment(note.date).format("YYYY-MM-DD hh:mm")}</td>

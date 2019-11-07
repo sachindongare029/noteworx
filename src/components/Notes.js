@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NotesTable from './NotesTable';
+import NewNoteModal from './NewNoteModal';
 import '../styles/Notes.scss';
 
 class Notes extends Component {
@@ -7,8 +8,11 @@ class Notes extends Component {
     super(props);
     this.state = {
       isLoaded: false,
-      items: []
-    }
+      items: [],
+      newNoteModal: false
+    };
+    this.showNewNoteModal = this.showNewNoteModal.bind(this);
+    this.hideNewNoteModal = this.hideNewNoteModal.bind(this);
   }
   componentDidMount() {
     fetch("http://localhost:3001/notes")
@@ -28,13 +32,19 @@ class Notes extends Component {
         }
       );
   }
+  showNewNoteModal() {
+    this.setState({ newNoteModal: true });
+  }
+  hideNewNoteModal() {
+    this.setState({ newNoteModal: false });
+  }
 
   render() {
-    let {isLoaded, items, error} = this.state;
+    let { isLoaded, items, error } = this.state;
     return (
       <div className="notes-container">
         <div className="notes__input-container">
-          <button className="add--btn">
+          <button className="add--btn" onClick={()=>this.showNewNoteModal()}>
             <i className="fa fa-plus" aria-hidden="true"></i>
           </button>
           <input type="text" placeholder="Search for note by title ..." />
@@ -43,8 +53,18 @@ class Notes extends Component {
           </button>
         </div>
         <div className="notes__result-container">
-          { error ? "Server Not Responding..." : (!isLoaded ? "Loading..." : <NotesTable notes={items} />) }
+          {error ? (
+            "Server Not Responding..."
+          ) : !isLoaded ? (
+            "Loading..."
+          ) : (
+            <NotesTable notes={items} />
+          )}
         </div>
+        <NewNoteModal
+          show={this.state.newNoteModal}
+          callback={() => this.hideNewNoteModal()}
+        />
       </div>
     );
   }
