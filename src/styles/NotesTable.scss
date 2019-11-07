@@ -1,0 +1,28 @@
+.notes {
+  table {
+    width: 100%;
+    line-height: 40px;
+    tr, td, th {
+      border: 1px solid #c7c7c7;
+    }
+    th {
+      text-align: center;
+    }
+    td {
+      padding: 0 8px;
+      color: #3a3939;
+    }
+    .buttons-col {
+      width: 10%;
+    }
+    .title-col {
+      width: 25%;
+    }
+    .content-col {
+      width: 40%;
+    }
+    .date-col {
+      width: 25%;
+    }
+  }
+}
