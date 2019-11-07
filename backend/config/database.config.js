@@ -1,3 +1,4 @@
 module.exports = {
-  url: "mongodb://127.0.0.1:27017/noteWorx"
+  url:
+    "mongodb+srv://sachindongare:sd27997@mlab@cluster0-mnykc.mongodb.net/noteWorx?retryWrites=true&w=majority"
 };
