@@ -47,7 +47,7 @@ exports.update = function(req, res) {
     err,
     product
   ) {
-    if (err) return next(err);
+    if (err) return(err);
     res.send("Product udpated.");
   });
 };

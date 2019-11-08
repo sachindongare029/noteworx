@@ -9,14 +9,19 @@ class NewNoteModal extends Component {
       title: "",
       content: "",
       tag: "",
-      saved: false
+      emptyInput: false
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
   handleSave() {
-    let { title, tag, content, saved } = this.state;
-    
+    let { title, tag, content } = this.state;
+    if(!title || !content) {
+      this.setState({
+        emptyInput: true
+      })
+      return;
+    }
     fetch("http://localhost:3001/create", {
       method: "POST",
       headers: {
@@ -31,23 +36,16 @@ class NewNoteModal extends Component {
     }).then(() => {
       this.props.handleSave(true);
       this.setState({
-        saved: false
+        title: "",
+        content: "",
+        tag: ""
       });
     }).catch((error) => {
       console.log("error", error);
-      this.props.handleSave(true);
-      this.setState({
-        saved: false
-      });
-    });
-
-    this.setState({
-      title: "",
-      content: "",
-      tag: "",
+      // this.props.handleSave(true);
     });
     
-    // this.props.handleSave(saved);
+    // this.props.handleSave(true);
   }
 
   handleCancel() {
@@ -60,8 +58,7 @@ class NewNoteModal extends Component {
   }
 
   render() {
-    let { title, tag, content, saved } = this.state;
-    // console.log("title, content, tag", title, content, tag);
+    let { title, tag, content } = this.state;
     return (
       <Modal
         show={this.props.show}
@@ -78,6 +75,10 @@ class NewNoteModal extends Component {
               onClick={() => this.props.handleClose()}
             ></i>
           </div>
+          <div className="error-messages">
+
+          </div>
+          {}
           <div className="modal-input-container">
             <div>Title</div>
             <input
