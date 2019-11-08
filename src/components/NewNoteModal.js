@@ -9,19 +9,34 @@ class NewNoteModal extends Component {
       title: "",
       content: "",
       tag: "",
-      emptyInput: false
+      emptyInput: ""
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
   handleSave() {
     let { title, tag, content } = this.state;
-    if(!title || !content) {
+    if (!title && content) {
       this.setState({
-        emptyInput: true
-      })
+        emptyInput: "title"
+      });
       return;
+    } else if (!content && title) {
+      this.setState({
+        emptyInput: "content"
+      });
+      return;
+    } else if (!title && !content) {
+      this.setState({
+        emptyInput: "both"
+      });
+      return;
+    } else {
+      this.setState({
+        emptyInput: ""
+      });
     }
+
     fetch("http://localhost:3001/create", {
       method: "POST",
       headers: {
@@ -33,18 +48,20 @@ class NewNoteModal extends Component {
         content: content,
         tag: tag
       })
-    }).then(() => {
-      this.props.handleSave(true);
-      this.setState({
-        title: "",
-        content: "",
-        tag: ""
+    })
+      .then(() => {
+        this.props.handleSave(true);
+        this.setState({
+          title: "",
+          content: "",
+          tag: "",
+          emptyInput: ''
+        });
+      })
+      .catch(error => {
+        console.log("error", error);
       });
-    }).catch((error) => {
-      console.log("error", error);
-      // this.props.handleSave(true);
-    });
-    
+
     // this.props.handleSave(true);
   }
 
@@ -52,13 +69,36 @@ class NewNoteModal extends Component {
     this.setState({
       title: "",
       content: "",
-      tag: ""
+      tag: "",
+      emptyInput: ""
     });
     this.props.handleClose();
   }
+  handleEmptyInput() {
+    let { emptyInput } = this.state;
+    if (emptyInput === 'title') {
+      return (
+        <div>
+          Title Empty
+        </div>
+      )
+    } else if (emptyInput === 'content') {
+      return (
+        <div>
+          content error
+        </div>
+      )
+    } else if (emptyInput === 'both') {
+      return (
+        <div>
+          both error
+        </div>
+      )
+    }
+  }
 
   render() {
-    let { title, tag, content } = this.state;
+    let { title, tag, content, emptyInput } = this.state;
     return (
       <Modal
         show={this.props.show}
@@ -72,13 +112,10 @@ class NewNoteModal extends Component {
             <i
               className="fa fa-times"
               aria-hidden="true"
-              onClick={() => this.props.handleClose()}
+              onClick={() => this.handleCancel()}
             ></i>
           </div>
-          <div className="error-messages">
-
-          </div>
-          {}
+          {emptyInput ? this.handleEmptyInput() : ""}
           <div className="modal-input-container">
             <div>Title</div>
             <input

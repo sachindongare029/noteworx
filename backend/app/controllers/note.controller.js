@@ -3,7 +3,9 @@ const Note = require("../models/note.model.js");
 // Display Notes
 exports.display = function(req, res) {
   Note.find(function(err, Note) {
-    if (err) return (err);
+    if (err) { 
+      return (err);
+    };
     res.send(Note);
   });
 };
