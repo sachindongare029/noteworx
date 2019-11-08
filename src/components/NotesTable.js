@@ -3,10 +3,6 @@ import moment from 'moment';
 import './../styles/NotesTable.scss';
 
 class NotesTable extends Component {
-  constructor(props) {
-    super(props); 
-  }
-
   render() {
     let { notes } = this.props;
     console.log("props", notes);

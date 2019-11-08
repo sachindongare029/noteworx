@@ -63,7 +63,7 @@ class Notes extends Component {
         </div>
         <NewNoteModal
           show={this.state.newNoteModal}
-          callback={() => this.hideNewNoteModal()}
+          handleClose={() => this.hideNewNoteModal()}
         />
       </div>
     );
