@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
+import './../styles/NewNoteModal.scss';
 
 class NewNoteModal extends Component {
 	// constructor(props) {
@@ -8,19 +9,18 @@ class NewNoteModal extends Component {
 
   render() {
     return (
-      <Modal show={this.props.show} onHide={() => this.props.handleClose()}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="success" onClick={() => this.props.handleClose()}>
+      <Modal show={this.props.show} className="new-note-modal">
+        <Modal.Body>
+				Woohoo, you're reading this text in a modal!
+				<div className="button-group">
+					<Button variant="success" onClick={() => this.props.handleClose()}>
             Save
           </Button>
           <Button variant="danger" onClick={() =>this.props.handleClose()}>
             Cancel
           </Button>
-        </Modal.Footer>
+				</div>
+				</Modal.Body>
       </Modal>
     );
   }
