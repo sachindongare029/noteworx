@@ -15,8 +15,28 @@ class NewNoteModal extends Component {
   }
   handleSave() {
     let { title, tag, content } = this.state;
-    console.log("title, content, tag", title, content, tag);
-    // this.props.handleClose();
+    
+    fetch("http://localhost:3001/create", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        tag: tag
+      })
+    }).catch((error) => {
+      alert("error", error);
+    });
+
+    this.setState({
+      title: "",
+      content: "",
+      tag: ""
+    });
+    this.props.handleClose();
   }
 
   handleCancel() {
@@ -51,6 +71,7 @@ class NewNoteModal extends Component {
             <div>Title</div>
             <input
               type="text"
+              value={title}
               onChange={e => {
                 this.setState({ title: e.target.value });
               }}
@@ -58,6 +79,7 @@ class NewNoteModal extends Component {
             <div>Content</div>
             <textarea
               rows="4"
+              value={content}
               onChange={e => {
                 this.setState({ content: e.target.value });
               }}
@@ -65,6 +87,7 @@ class NewNoteModal extends Component {
             <div>Tags</div>
             <input
               type="text"
+              value={tag}
               onChange={e => {
                 this.setState({ tag: e.target.value });
               }}
