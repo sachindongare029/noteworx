@@ -24,6 +24,21 @@
 				cursor: pointer;
 			}
 		}
+		.error-container {
+			line-height: 45px;
+			margin: 15px 0;
+			padding: 0 20px;
+			color: #75263b;
+			background-color: #f8d7da;
+			border: 0.5px solid #f5c6cb;
+			border-radius: 4px;
+			.fa-times {
+				float: right;
+				margin-top: 2%;
+				color: #c18d92;
+				cursor: pointer;
+			}
+		}
 		.modal-input-container {
 			margin: 20px 0;
 			div {
