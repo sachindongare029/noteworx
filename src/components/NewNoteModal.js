@@ -16,9 +16,9 @@ class NewNoteModal extends Component {
       >
         <Modal.Body>
           <div className="modal_header">
-            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            <i className="fa fa-file-text-o" aria-hidden="true"></i>
             <span className="modal_title">New Note</span>
-            <i class="fa fa-times" aria-hidden="true" onClick={() => this.props.handleClose()}></i>
+            <i className="fa fa-times" aria-hidden="true" onClick={() => this.props.handleClose()}></i>
           </div>
           <div className="modal-input-container">
             <div>Title</div>
@@ -30,11 +30,11 @@ class NewNoteModal extends Component {
           </div>
 				<div className="button-group">
 					<Button variant="success" onClick={() => this.props.handleClose()}>
-              <i class="fa fa-floppy-o" aria-hidden="true"></i>
+              <i className="fa fa-floppy-o" aria-hidden="true"></i>
               Save
           </Button>
           <Button variant="danger" onClick={() =>this.props.handleClose()}>
-            <i class="fa fa-times" aria-hidden="true"></i>
+            <i className="fa fa-times" aria-hidden="true"></i>
             Cancel
           </Button>
 				</div>

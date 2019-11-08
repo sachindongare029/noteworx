@@ -35,9 +35,15 @@
 				width: 100%;
 				border: 1px solid #c3c3c3;
 				border-radius: 4px;
+				padding: 0 8px;
+			}
+			input:focus, textarea:focus {
+				outline: 0.6px solid #80bdff;
+    		box-shadow: 0 0 3pt 1pt #80bdff;
 			}
 			input {
 				height: 40px;
+				font-size: 18px;
 			}
 		}
 		.button-group {
