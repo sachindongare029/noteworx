@@ -9,24 +9,31 @@ class Notes extends Component {
     this.state = {
       isLoaded: false,
       items: [],
-      newNoteModal: false
+      newNoteModal: false,
+      newNoteSaved: false
     };
     this.showNewNoteModal = this.showNewNoteModal.bind(this);
     this.hideNewNoteModal = this.hideNewNoteModal.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
   componentDidMount() {
+    this.loadNotes();
+  }
+  loadNotes() {
     fetch("http://localhost:3001/notes")
       .then(res => res.json())
       .then(
         result => {
           this.setState({
             isLoaded: true,
-            items: result
+            items: result,
+            newNoteSaved: false
           });
         },
         error => {
           this.setState({
             isLoaded: true,
+            newNoteSaved: false,
             error
           });
         }
@@ -38,13 +45,25 @@ class Notes extends Component {
   hideNewNoteModal() {
     this.setState({ newNoteModal: false });
   }
+  handleSave(saveFlag) {
+    if(saveFlag) {
+      this.setState({
+        newNoteSaved: true
+      });
+    }
+    this.setState({ newNoteModal: false });
+  }
 
   render() {
+    let { newNoteSaved } = this.state;
+    if(newNoteSaved) {
+      this.loadNotes();
+    }
     let { isLoaded, items, error } = this.state;
     return (
       <div className="notes-container">
         <div className="notes__input-container">
-          <button className="add--btn" onClick={()=>this.showNewNoteModal()}>
+          <button className="add--btn" onClick={() => this.showNewNoteModal()}>
             <i className="fa fa-plus" aria-hidden="true"></i>
           </button>
           <input type="text" placeholder="Search for note by title ..." />
@@ -54,7 +73,7 @@ class Notes extends Component {
         </div>
         <div className="notes__result-container">
           {error ? (
-            "Server Not Responding..."
+            "Server Not Responding... Try again later.."
           ) : !isLoaded ? (
             "Loading..."
           ) : (
@@ -64,6 +83,7 @@ class Notes extends Component {
         <NewNoteModal
           show={this.state.newNoteModal}
           handleClose={() => this.hideNewNoteModal()}
+          handleSave={(saved) => this.handleSave(saved)}
         />
       </div>
     );
