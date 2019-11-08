@@ -1,5 +1,62 @@
 .new-note-modal {
-    .modal-dialog {
-        max-width: 60%;
-    }
+  .modal-dialog {
+    max-width: 60%;
+	}
+	.modal-content {
+		padding: 1.3rem;
+	}
+	.modal-body {
+		border: 1px solid #c3c3c3;
+		border-radius: 4px;
+		.modal_header {
+			font-size: 24px;
+			i {
+				font-size: 30px;
+			}
+			.modal_title {
+				margin-left: 6px;
+				vertical-align: text-bottom;
+			}
+			.fa-times {
+				float: right;
+				margin-right: 4px;
+				color: #dc3545;
+				cursor: pointer;
+			}
+		}
+		.modal-input-container {
+			margin: 20px 0;
+			div {
+				font-size: 18px;
+				margin-top: 15px;
+				margin-bottom: 4px;
+			}
+			input, textarea {
+				width: 100%;
+				border: 1px solid #c3c3c3;
+				border-radius: 4px;
+			}
+			input {
+				height: 40px;
+			}
+		}
+		.button-group {
+			width: 50%;
+			float: right;
+			margin-bottom: 22px;
+			button {
+				width: 46%;
+				height: 44px;
+				padding: 0;
+				font-size: 20px;
+				i {
+					margin-right: 6px;
+					font-size: 22px;
+				}
+			}
+			.btn-success {
+				margin-right: 8%;
+			}
+		}
+	}
 }

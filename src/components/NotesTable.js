@@ -5,7 +5,7 @@ import './../styles/NotesTable.scss';
 class NotesTable extends Component {
   render() {
     let { notes } = this.props;
-    console.log("props", notes);
+    // console.log("props", notes);
     return (
       <div className="notes">
         <table>

@@ -1,7 +1,6 @@
 .notes {
   table {
     width: 100%;
-    line-height: 50px;
     tr, td, th {
       border: 1px solid #c7c7c7;
     }
@@ -13,6 +12,7 @@
       color: #3a3939;
     }
     tr {
+      height: 50px;
       .fa-pencil {
         color: #3f7bff;
       }
@@ -23,6 +23,7 @@
         width: 50%;
         font-size: 20px;
         text-align: center;
+        cursor: pointer;
       }
     }
     tr:nth-child(even) {
