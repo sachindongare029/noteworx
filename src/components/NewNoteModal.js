@@ -77,24 +77,19 @@ class NewNoteModal extends Component {
   handleEmptyInput() {
     let { emptyInput } = this.state;
     if (emptyInput === 'title') {
-      return (
-        <div>
-          Title Empty
-        </div>
-      )
+      return this.errorMessage('title');
     } else if (emptyInput === 'content') {
-      return (
-        <div>
-          content error
-        </div>
-      )
+      return this.errorMessage("content");
     } else if (emptyInput === 'both') {
       return (
-        <div>
-          both error
-        </div>
-      )
+        <div className="both-error-container">{this.errorMessage("title")}{this.errorMessage("content")}</div>
+      );
     }
+  }
+  errorMessage(type) {
+    return (
+      <div className="error-container">{type}</div>
+    )
   }
 
   render() {
