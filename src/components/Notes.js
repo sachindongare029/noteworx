@@ -10,12 +10,14 @@ class Notes extends Component {
       isLoaded: false,
       items: [],
       newNoteModal: false,
-      newNoteSaved: false
+      newNoteSaved: false,
+      searchTxt: ""
     };
     this.showNewNoteModal = this.showNewNoteModal.bind(this);
     this.hideNewNoteModal = this.hideNewNoteModal.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
   componentDidMount() {
     this.loadNotes();
@@ -61,9 +63,27 @@ class Notes extends Component {
       });
     }
   }
+  handleSearch(text) {
+    if(!text) {
+      return;
+    }
+    fetch("http://localhost:3001/search/" + text)
+      .then(res => res.json())
+      .then(
+        result => {
+          this.setState({
+            searchedItems: result,
+          });
+          console.log("result", result);
+        },
+        error => {
+          console.log("error", error);
+        }
+      );
+  }
 
   render() {
-    let { newNoteSaved } = this.state;
+    let { newNoteSaved, searchTxt } = this.state;
     if (newNoteSaved) {
       this.loadNotes();
     }
@@ -74,8 +94,19 @@ class Notes extends Component {
           <button className="add--btn" onClick={() => this.showNewNoteModal()}>
             <i className="fa fa-plus" aria-hidden="true"></i>
           </button>
-          <input type="text" placeholder="Search for note by title ..." />
-          <button className="search--btn">
+          <input
+            type="text"
+            placeholder="Search for note by title ..."
+            onChange={e => {
+              this.setState({ searchTxt: e.target.value });
+            }}
+          />
+          <button
+            className="search--btn"
+            onClick={() => {
+              this.handleSearch(searchTxt);
+            }}
+          >
             <i className="fa fa-search" aria-hidden="true"></i>
           </button>
         </div>

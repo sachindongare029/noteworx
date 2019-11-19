@@ -32,8 +32,11 @@ exports.create = function(req, res) {
 
 // Display by ID
 exports.notes = function(req, res) {
-  Note.findById(req.params.id, function(err, Note) {
-    if (err) return (err);
+  var title = req.params.title;
+  Note.find({title: title}, function(err, Note) {
+    if (err) { 
+      return (err) 
+    };
     res.send(Note);
   });
 };
