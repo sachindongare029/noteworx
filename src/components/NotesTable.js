@@ -1,18 +1,34 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import './../styles/NotesTable.scss';
+import React, { Component } from "react";
+import moment from "moment";
+import "./../styles/NotesTable.scss";
 
 class NotesTable extends Component {
   constructor(props) {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
   }
   handleDelete(id) {
     fetch("http://localhost:3001/delete/" + id, {
       method: "DELETE",
-      headers: { "content-type": "application/json" },
-    })
-      .then(res => { this.props.handleDelete(true) }, error => { console.log("Error", error)})
+      headers: { "content-type": "application/json" }
+    }).then(
+      () => {
+        this.props.handleDelete(true);
+      },
+      error => {
+        console.log("Error", error);
+      }
+    );
+  }
+  handleMouseEnter(e) {
+    var node = e.target.closest("tr");
+    node.classList.add("row-hovered");
+  }
+  onMouseLeave(e) {
+    var node = e.target.closest("tr");
+    node.classList.remove("row-hovered");
   }
 
   render() {
@@ -37,6 +53,8 @@ class NotesTable extends Component {
                       className="fa fa-trash"
                       aria-hidden="true"
                       onClick={() => this.handleDelete(note._id)}
+                      onMouseEnter={e => this.handleMouseEnter(e)}
+                      onMouseLeave={e => this.onMouseLeave(e)}
                     ></i>
                   </td>
                   <td>{note.title}</td>

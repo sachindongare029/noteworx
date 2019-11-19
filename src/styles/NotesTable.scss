@@ -11,6 +11,13 @@
       padding: 0 8px;
       color: #3a3939;
     }
+    .row-hovered {
+      text-decoration: line-through;
+      color: #b5b3b3;
+      td {
+        color: #b5b3b3;
+      }
+    }
     tr {
       height: 50px;
       .fa-pencil {

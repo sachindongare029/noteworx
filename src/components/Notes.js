@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import NotesTable from './NotesTable';
-import NewNoteModal from './NewNoteModal';
-import '../styles/Notes.scss';
+import React, { Component } from "react";
+import NotesTable from "./NotesTable";
+import NewNoteModal from "./NewNoteModal";
+import "../styles/Notes.scss";
 
 class Notes extends Component {
   constructor(props) {
@@ -85,7 +85,10 @@ class Notes extends Component {
           ) : !isLoaded ? (
             "Loading..."
           ) : (
-          <NotesTable notes={items} handleDelete = {(deleteFlag) => this.handleDelete(deleteFlag)} />
+            <NotesTable
+              notes={items}
+              handleDelete={deleteFlag => this.handleDelete(deleteFlag)}
+            />
           )}
         </div>
         <NewNoteModal
