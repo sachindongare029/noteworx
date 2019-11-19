@@ -87,15 +87,27 @@ class NewNoteModal extends Component {
     }
   }
   errorMessage(type) {
+    let { emptyInput } = this.state;
     return (
       <div className="error-container">
         {type} is required
         <i
           className="fa fa-times"
           aria-hidden="true"
-          onClick={(e) => {
-            console.log("e", e.target.closest(".error-container"));
-            // this.setState({emptyInput: ''})
+          onClick={() => {
+            if (emptyInput === 'both' && type === 'Title') {
+              this.setState({
+                emptyInput: 'content'
+              })
+            } else if (emptyInput === "both" && type === "Content") {
+              this.setState({
+                emptyInput: "title"
+              });
+            } else {
+              this.setState({
+                emptyInput: ""
+              });
+            }
           }}
         ></i>
       </div>
