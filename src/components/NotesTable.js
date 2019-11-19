@@ -3,6 +3,18 @@ import moment from 'moment';
 import './../styles/NotesTable.scss';
 
 class NotesTable extends Component {
+  constructor(props) {
+    super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+  handleDelete(id) {
+    fetch("http://localhost:3001/delete/" + id, {
+      method: "DELETE",
+      headers: { "content-type": "application/json" },
+    })
+      .then(res => { this.props.handleDelete(true) }, error => { console.log("Error", error)})
+  }
+
   render() {
     let { notes } = this.props;
     // console.log("props", notes);
@@ -16,12 +28,16 @@ class NotesTable extends Component {
               <th className="content-col">Content</th>
               <th className="date-col">Updated Date</th>
             </tr>
-            {notes.map((note, i)=>{
+            {notes.map((note, i) => {
               return (
                 <tr key={i}>
                   <td>
                     <i className="fa fa-pencil" aria-hidden="true"></i>
-                    <i className="fa fa-trash" aria-hidden="true"></i>
+                    <i
+                      className="fa fa-trash"
+                      aria-hidden="true"
+                      onClick={() => this.handleDelete(note._id)}
+                    ></i>
                   </td>
                   <td>{note.title}</td>
                   <td>{note.content}</td>
@@ -29,7 +45,6 @@ class NotesTable extends Component {
                 </tr>
               );
             })}
-            
           </tbody>
         </table>
       </div>

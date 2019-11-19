@@ -15,6 +15,7 @@ class Notes extends Component {
     this.showNewNoteModal = this.showNewNoteModal.bind(this);
     this.hideNewNoteModal = this.hideNewNoteModal.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
     this.loadNotes();
@@ -46,17 +47,24 @@ class Notes extends Component {
     this.setState({ newNoteModal: false });
   }
   handleSave(saveFlag) {
-    if(saveFlag) {
+    if (saveFlag) {
       this.setState({
         newNoteSaved: true
       });
     }
     this.setState({ newNoteModal: false });
   }
+  handleDelete(deleteFlag) {
+    if (deleteFlag) {
+      this.setState({
+        newNoteSaved: true
+      });
+    }
+  }
 
   render() {
     let { newNoteSaved } = this.state;
-    if(newNoteSaved) {
+    if (newNoteSaved) {
       this.loadNotes();
     }
     let { isLoaded, items, error } = this.state;
@@ -77,13 +85,13 @@ class Notes extends Component {
           ) : !isLoaded ? (
             "Loading..."
           ) : (
-            <NotesTable notes={items} />
+          <NotesTable notes={items} handleDelete = {(deleteFlag) => this.handleDelete(deleteFlag)} />
           )}
         </div>
         <NewNoteModal
           show={this.state.newNoteModal}
           handleClose={() => this.hideNewNoteModal()}
-          handleSave={(saved) => this.handleSave(saved)}
+          handleSave={saved => this.handleSave(saved)}
         />
       </div>
     );
