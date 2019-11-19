@@ -6,7 +6,10 @@ exports.display = function(req, res) {
     if (err) { 
       return (err);
     };
-    res.send(Note);
+    res.send(Note.sort( function  (a,b) {
+        return new Date(b.date) - new Date(a.date);
+      })
+    );
   });
 };
 
