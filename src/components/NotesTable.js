@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import moment from "moment";
+import UpdateModal from './UpdateModal';
 import "./../styles/NotesTable.scss";
 
 class NotesTable extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showUpdateModal: false,
+      updateItem: []
+    };
     this.handleDelete = this.handleDelete.bind(this);
+    this.showUpdateModal = this.showUpdateModal.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
   }
@@ -30,9 +36,31 @@ class NotesTable extends Component {
     var node = e.target.closest("tr");
     node.classList.remove("row-hovered");
   }
+  showUpdateModal (id) {
+    fetch("http://localhost:3001/find/" + id)
+      .then(res => res.json())
+      .then(
+        result => {
+          this.setState({
+            updateItem: result,
+            showUpdateModal: true
+          });
+        },
+        error => {
+          alert("Please check your connection...");
+        }
+      );
+  }
+  closeUpdateModal() {
+    this.setState({
+      showUpdateModal: false,
+      updateId: ''
+    })
+  }
 
   render() {
     let { notes } = this.props;
+    let { showUpdateModal, updateItem } = this.state;
     // console.log("props", notes);
     return (
       <div className="notes">
@@ -48,7 +76,11 @@ class NotesTable extends Component {
               return (
                 <tr key={i}>
                   <td>
-                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                    <i
+                      className="fa fa-pencil"
+                      aria-hidden="true"
+                      onClick={() => this.showUpdateModal(note._id)}
+                    ></i>
                     <i
                       className="fa fa-trash"
                       aria-hidden="true"
@@ -65,6 +97,11 @@ class NotesTable extends Component {
             })}
           </tbody>
         </table>
+        <UpdateModal
+          show = {showUpdateModal}
+          updateItem = {updateItem}
+          callback = {() => this.closeUpdateModal()}
+        />
       </div>
     );
   }

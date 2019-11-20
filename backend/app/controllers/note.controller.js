@@ -30,10 +30,21 @@ exports.create = function(req, res) {
   });
 };
 
-// Display by ID
+// Display by Title
 exports.notes = function(req, res) {
   var title = req.params.title;
   Note.find({title: title}, function(err, Note) {
+    if (err) { 
+      return (err) 
+    };
+    res.send(Note);
+  });
+};
+
+// Display by ID
+exports.searchById = function(req, res) {
+  var id = req.params.id;
+  Note.findById(id, function(err, Note) {
     if (err) { 
       return (err) 
     };
@@ -49,7 +60,7 @@ exports.delete = function(req, res) {
   });
 };
 
-// Update Database
+// Update by id
 exports.update = function(req, res) {
   Note.findByIdAndUpdate(req.params.id, { $set: req.body }, function(
     err,
