@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import moment from "moment";
-import UpdateModal from './UpdateModal';
+import UpdateModal from "./UpdateModal";
 import "./../styles/NotesTable.scss";
 
 class NotesTable extends Component {
@@ -36,7 +36,7 @@ class NotesTable extends Component {
     var node = e.target.closest("tr");
     node.classList.remove("row-hovered");
   }
-  showUpdateModal (id) {
+  showUpdateModal(id) {
     fetch("http://localhost:3001/find/" + id)
       .then(res => res.json())
       .then(
@@ -99,9 +99,15 @@ class NotesTable extends Component {
           </tbody>
         </table>
         <UpdateModal
-          show = {showUpdateModal}
-          updateItem = {updateItem}
-          callback = {() => this.closeUpdateModal()}
+          show={showUpdateModal}
+          updateItem={updateItem}
+          callback={() => this.closeUpdateModal()}
+          handleUpdate={flag => {
+            this.props.handleUpdate(flag);
+            this.setState({
+              showUpdateModal: false
+            });
+          }}
         />
       </div>
     );

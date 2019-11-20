@@ -19,6 +19,7 @@ class Notes extends Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
   componentDidMount() {
     this.loadNotes();
@@ -65,7 +66,7 @@ class Notes extends Component {
     }
   }
   handleSearch(text) {
-    if(!text) {
+    if (!text) {
       this.loadNotes();
       return;
     }
@@ -74,13 +75,20 @@ class Notes extends Component {
       .then(
         result => {
           this.setState({
-            items: result,
+            items: result
           });
         },
         error => {
           console.log("error", error);
         }
       );
+  }
+  handleUpdate(updateFlag) {
+    if (updateFlag) {
+      this.setState({
+        newNoteSaved: true
+      });
+    }
   }
 
   render() {
@@ -120,6 +128,7 @@ class Notes extends Component {
             <NotesTable
               notes={items}
               handleDelete={deleteFlag => this.handleDelete(deleteFlag)}
+              handleUpdate={flag => this.handleUpdate(flag)}
             />
           ) : (
             <h5>No Notes Found...</h5>

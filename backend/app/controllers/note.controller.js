@@ -33,10 +33,10 @@ exports.create = function(req, res) {
 // Display by Title
 exports.notes = function(req, res) {
   var title = req.params.title;
-  Note.find({title: title}, function(err, Note) {
-    if (err) { 
-      return (err) 
-    };
+  Note.find({ title: { $regex: title } }, function(err, Note) {
+    if (err) {
+      return err;
+    }
     res.send(Note);
   });
 };

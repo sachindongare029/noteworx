@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
-import isEmpty from 'lodash';
 import "../styles/UpdateModal.scss";
 
 class UpdateModal extends Component {
@@ -25,7 +24,7 @@ class UpdateModal extends Component {
       })
     }
   }
-  handleUpdate() {
+  handleUpdate(id) {
     let { title, tag, content } = this.state;
     if (!title && content) {
       this.setState({
@@ -48,32 +47,30 @@ class UpdateModal extends Component {
       });
     }
 
-    // fetch("http://localhost:3001/create", {
-    //   method: "PUT",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     title: title,
-    //     content: content,
-    //     tag: tag
-    //   })
-    // })
-    //   .then(() => {
-    //     this.props.handleSave(true);
-    //     this.setState({
-    //       title: "",
-    //       content: "",
-    //       tag: "",
-    //       emptyInput: ""
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.log("error", error);
-    //   });
-
-    // this.props.handleSave(true);
+    fetch("http://localhost:3001/update/" + id, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        title: title,
+        content: content,
+        tag: tag
+      })
+    })
+      .then(() => {
+        this.props.handleUpdate(true);
+        this.setState({
+          title: "",
+          content: "",
+          tag: "",
+          emptyInput: ""
+        });
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
   }
   handleCancel() {
     this.props.callback();
@@ -122,7 +119,7 @@ class UpdateModal extends Component {
   }
 
   render() {
-    let { show } = this.props;
+    let { updateItem, show } = this.props;
     let { title, tag, content, emptyInput } = this.state;
     return (
       <Modal
@@ -168,7 +165,10 @@ class UpdateModal extends Component {
             />
           </div>
           <div className="button-group">
-            <Button variant="success" onClick={() => this.handleUpdate()}>
+            <Button
+              variant="success"
+              onClick={() => this.handleUpdate(updateItem._id)}
+            >
               <i className="fa fa-floppy-o" aria-hidden="true"></i>
               Update
             </Button>

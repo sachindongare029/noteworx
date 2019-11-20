@@ -59,7 +59,7 @@ class NewNoteModal extends Component {
         });
       })
       .catch(error => {
-        console.log("error", error);
+        alert("error", error);
       });
 
     // this.props.handleSave(true);
