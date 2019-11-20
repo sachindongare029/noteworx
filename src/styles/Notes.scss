@@ -35,5 +35,14 @@
   }
   .notes__result-container {
     margin-top: 20px;
+    h5 {
+      height: 45px;
+			margin: 15px 0;
+			padding: 10px 20px;
+			color: #75263b;
+			background-color: #f8d7da;
+			border: 0.5px solid #f5c6cb;
+			border-radius: 4px;
+    }
   }
 }

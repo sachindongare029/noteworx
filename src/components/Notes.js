@@ -11,7 +11,8 @@ class Notes extends Component {
       items: [],
       newNoteModal: false,
       newNoteSaved: false,
-      searchTxt: ""
+      searchTxt: "",
+      searchedItems: []
     };
     this.showNewNoteModal = this.showNewNoteModal.bind(this);
     this.hideNewNoteModal = this.hideNewNoteModal.bind(this);
@@ -65,6 +66,7 @@ class Notes extends Component {
   }
   handleSearch(text) {
     if(!text) {
+      this.loadNotes();
       return;
     }
     fetch("http://localhost:3001/search/" + text)
@@ -72,9 +74,8 @@ class Notes extends Component {
       .then(
         result => {
           this.setState({
-            searchedItems: result,
+            items: result,
           });
-          console.log("result", result);
         },
         error => {
           console.log("error", error);
@@ -115,11 +116,13 @@ class Notes extends Component {
             "Server Not Responding... Try again later.."
           ) : !isLoaded ? (
             "Loading..."
-          ) : (
+          ) : items.length > 0 ? (
             <NotesTable
               notes={items}
               handleDelete={deleteFlag => this.handleDelete(deleteFlag)}
             />
+          ) : (
+            <h5>No Notes Found...</h5>
           )}
         </div>
         <NewNoteModal
