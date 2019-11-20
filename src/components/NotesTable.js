@@ -8,7 +8,7 @@ class NotesTable extends Component {
     super(props);
     this.state = {
       showUpdateModal: false,
-      updateItem: []
+      updateItem: {}
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.showUpdateModal = this.showUpdateModal.bind(this);
@@ -54,8 +54,9 @@ class NotesTable extends Component {
   closeUpdateModal() {
     this.setState({
       showUpdateModal: false,
-      updateId: ''
-    })
+      updateId: "",
+      updateItem: {}
+    });
   }
 
   render() {
