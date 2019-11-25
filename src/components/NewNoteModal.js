@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { connect } from "react-redux";
 import ErrorMsg from './ErrorMsg';
 import "./../styles/NewNoteModal.scss";
+import { addNote } from "../actions";
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addNote: note => dispatch(addNote(note))
+  };
+};
+const mapStateToProps = state => {
+  return { notes: (state) };
+};
 
 class NewNoteModal extends Component {
   constructor(props) {
@@ -17,6 +28,8 @@ class NewNoteModal extends Component {
   }
   handleSave() {
     let { title, tag, content } = this.state;
+    this.props.addNote({ title, content, tag });
+
     if (!title && content) {
       this.setState({
         emptyInput: "title"
@@ -62,8 +75,6 @@ class NewNoteModal extends Component {
       .catch(error => {
         alert("error", error);
       });
-
-    // this.props.handleSave(true);
   }
 
   handleCancel() {
@@ -99,6 +110,7 @@ class NewNoteModal extends Component {
 
   render() {
     let { title, tag, content, emptyInput } = this.state;
+    // console.log("redux", this.props);
     return (
       <Modal
         show={this.props.show}
@@ -158,4 +170,5 @@ class NewNoteModal extends Component {
   }
 }
 
-export default NewNoteModal;
+// export default NewNoteModal;
+export default connect(mapStateToProps, mapDispatchToProps)(NewNoteModal);
